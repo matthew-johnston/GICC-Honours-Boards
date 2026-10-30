@@ -42,8 +42,8 @@ window.BOARD_CONFIG = {
     {
       name: 'Representatives',
       gid: '1088401897',
-      visualColumns: 3,
-      rowsPerColumn: 18
+      visualColumns: 2,
+      rowsPerColumn: 20
     },
     {
       name: 'Batting Centuries',

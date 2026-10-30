@@ -163,14 +163,15 @@ html, body {
   bottom: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .board-stage-inner {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-top: 8px;
 }
 
 /* Columns Grid */
@@ -183,12 +184,13 @@ html, body {
   overflow: hidden;
 }
 
+/* Visual Column - Uniform flex-start alignment (matching Batting Centuries) */
 .board-visual-column {
   flex: 1 1 0;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   padding: 0 16px;
 }
 
@@ -209,15 +211,16 @@ html, body {
   box-shadow: 1px 0 2px rgba(0, 0, 0, 0.7), -1px 0 1px rgba(255, 230, 160, 0.25);
 }
 
-/* Row Formatting - all columns in a row stay together */
+/* Row Formatting - Uniform height & line spacing across ALL boards */
 .board-row {
   display: flex;
   align-items: baseline;
   width: 100%;
-  padding: clamp(3px, 0.65vh, 7.5px) 6px;
-  font-size: clamp(14px, 1.95vh, 20px);
+  height: clamp(34px, 4.3vh, 44px);
+  line-height: clamp(34px, 4.3vh, 44px);
+  padding: 0 6px;
+  font-size: clamp(14px, 1.9vh, 19.5px);
   font-weight: 600;
-  line-height: 1.35;
   color: var(--gold-main);
   text-shadow: 1px 1px 2px var(--gold-shadow), 0 0 1px rgba(255, 235, 170, 0.25);
   white-space: nowrap;
@@ -226,7 +229,7 @@ html, body {
 /* 1-Column Row (e.g. Life Members) */
 .board-row.cols-1 {
   justify-content: flex-start;
-  padding-left: 22%;
+  padding-left: 20%;
 }
 
 .board-row.cols-1 .cell-single {
@@ -235,13 +238,15 @@ html, body {
   letter-spacing: 2px;
 }
 
-/* 2-Column Row (e.g. Presidents, Representatives) */
+/* 2-Column Row (e.g. Presidents, Representatives) - Guaranteed horizontal gap */
 .board-row.cols-2 {
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 28px;
 }
 
 .board-row.cols-2 .cell-left {
-  flex: 0 0 35%;
+  flex: 0 0 auto;
+  min-width: 125px;
   text-align: left;
   font-variant-numeric: tabular-nums;
   letter-spacing: 1.2px;
@@ -260,10 +265,12 @@ html, body {
 /* 3-Column Row (e.g. Batting Centuries, Bowling Records, Milestones) */
 .board-row.cols-3 {
   justify-content: space-between;
+  gap: 16px;
 }
 
 .board-row.cols-3 .cell-c1 {
-  flex: 0 0 26%;
+  flex: 0 0 auto;
+  min-width: 105px;
   text-align: left;
   font-variant-numeric: tabular-nums;
   letter-spacing: 1px;
@@ -274,7 +281,6 @@ html, body {
   flex: 1 1 auto;
   text-align: left;
   font-weight: 700;
-  padding: 0 8px;
   letter-spacing: 1px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -295,6 +301,7 @@ html, body {
 /* Multi-column fallback */
 .board-row.cols-multi {
   justify-content: space-between;
+  gap: 16px;
 }
 
 .board-row.cols-multi .cell {
