@@ -3,12 +3,6 @@
    ======================================================== */
 
 :root {
-  --wood-base: #341706;
-  --wood-dark: #1e0b02;
-  --wood-mid: #421e08;
-  --wood-light: #5a280c;
-  --wood-grain-dark: rgba(0, 0, 0, 0.07);
-  --wood-grain-light: rgba(255, 215, 130, 0.03);
   --gold-highlight: #fff2bf;
   --gold-main: #f5c847;
   --gold-deep: #cf8d13;
@@ -34,63 +28,44 @@ html, body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Fullscreen Edge-to-Edge Board with Beveled Wooden Frame (No Curves) */
+/* Fullscreen Board Container */
 .fullscreen-board {
   position: relative;
   width: 100vw;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 30px 48px 24px 48px;
-  background-color: var(--wood-base);
-  /* Rich vertical timber grain & natural varnish luster */
-  background-image:
-    radial-gradient(ellipse 90% 50% at 50% 15%, rgba(255, 230, 175, 0.12) 0%, transparent 80%),
-    radial-gradient(ellipse 100% 100% at 50% 50%, transparent 60%, rgba(10, 4, 1, 0.5) 100%),
-    repeating-linear-gradient(
-      90deg,
-      transparent 0px,
-      transparent 2px,
-      var(--wood-grain-dark) 2px,
-      var(--wood-grain-dark) 3px,
-      transparent 3px,
-      transparent 6px,
-      var(--wood-grain-light) 6px,
-      var(--wood-grain-light) 8px
-    ),
-    linear-gradient(180deg, var(--wood-dark) 0%, var(--wood-light) 30%, var(--wood-mid) 70%, var(--wood-dark) 100%);
-  /* 3D Routed & Beveled Outer Frame Border (Rectangle) */
-  box-shadow:
-    inset 0 0 0 10px #1a0802,
-    inset 0 0 0 14px #421e08,
-    inset 0 0 0 17px #120501,
-    inset 0 0 35px rgba(0, 0, 0, 0.88);
+  overflow: hidden;
+  background-color: #1a0802;
 }
 
-/* Inset Gold Pin-stripe Framing Border (matching reference photo 1) */
-.board-frame-border {
+/* Realistic Hardwood SVG Backdrop */
+.board-backdrop-svg {
   position: absolute;
-  top: 22px;
-  left: 24px;
-  right: 24px;
-  bottom: 20px;
-  border: 1.5px solid rgba(212, 152, 29, 0.45);
-  box-shadow:
-    inset 0 0 0 1px rgba(15, 6, 1, 0.6),
-    0 0 0 1px rgba(15, 6, 1, 0.6);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: 1;
 }
 
-/* Centered Straight Header (Club Name + Subline Board Name) */
+/* Foreground Interactive & Content Layer */
+.board-content-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  padding: 44px 75px 44px 75px;
+}
+
+/* Centered Straight Header */
 .board-header {
   flex: 0 0 auto;
-  position: relative;
-  z-index: 2;
   text-align: center;
-  padding-top: 4px;
-  margin-bottom: 8px;
+  margin-bottom: 14px;
 }
 
 /* Straight Club Title */
@@ -108,13 +83,13 @@ html, body {
   text-transform: uppercase;
 }
 
-/* Gold Horizontal Divider with Diamond (matching reference photo 1) */
+/* Gold Horizontal Divider with Diamond */
 .header-gold-divider {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 14px;
-  max-width: 720px;
+  max-width: 680px;
   margin: 6px auto 7px auto;
 }
 
@@ -134,7 +109,7 @@ html, body {
   opacity: 0.9;
 }
 
-/* Subline Wrapper (Active Board Name + Page Pill) */
+/* Subline Active Board Name + Page Pill */
 .subline-wrapper {
   display: inline-flex;
   align-items: center;
@@ -169,6 +144,7 @@ html, body {
   text-shadow: 1px 1px 2px #000;
 }
 
+/* Dynamic Board Stage - uses full vertical height without footer */
 .board-stage {
   flex: 1 1 auto;
   position: relative;
@@ -176,20 +152,28 @@ html, body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  z-index: 2;
-  margin: 10px 0 6px 0;
+  margin-top: 4px;
 }
+
 .board-content-wrapper {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
+
 .board-stage-inner {
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
+
+/* Columns Grid */
 .board-columns-grid {
   flex: 1 1 auto;
   display: flex;
@@ -198,44 +182,64 @@ html, body {
   width: 100%;
   overflow: hidden;
 }
+
 .board-visual-column {
   flex: 1 1 0;
   min-width: 0;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
   padding: 0 16px;
 }
+
+/* Vertical Gold Pin-stripe Dividers */
 .pinstripe-divider {
   flex: 0 0 2px;
   width: 2px;
-  margin: 0 12px;
+  margin: 0 14px;
   height: 98%;
   align-self: center;
-  background: linear-gradient(180deg, rgba(212,152,29,0.15) 0%, rgba(245,200,71,0.95) 12%, rgba(207,141,19,0.95) 88%, rgba(212,152,29,0.15) 100%);
-  box-shadow: 1px 0 2px rgba(0,0,0,0.7), -1px 0 1px rgba(255,230,160,0.25);
+  background: linear-gradient(
+    180deg,
+    rgba(212, 152, 29, 0.15) 0%,
+    rgba(245, 200, 71, 0.95) 12%,
+    rgba(207, 141, 19, 0.95) 88%,
+    rgba(212, 152, 29, 0.15) 100%
+  );
+  box-shadow: 1px 0 2px rgba(0, 0, 0, 0.7), -1px 0 1px rgba(255, 230, 160, 0.25);
 }
+
+/* Row Formatting - all columns in a row stay together */
 .board-row {
   display: flex;
   align-items: baseline;
   width: 100%;
-  padding: clamp(2.5px, 0.55vh, 6px) 6px;
-  font-size: clamp(14px, 1.85vh, 19px);
+  padding: clamp(3px, 0.65vh, 7.5px) 6px;
+  font-size: clamp(14px, 1.95vh, 20px);
   font-weight: 600;
   line-height: 1.35;
   color: var(--gold-main);
-  text-shadow: 1px 1px 2px var(--gold-shadow), 0 0 1px rgba(255,235,170,0.25);
+  text-shadow: 1px 1px 2px var(--gold-shadow), 0 0 1px rgba(255, 235, 170, 0.25);
   white-space: nowrap;
 }
+
+/* 1-Column Row (e.g. Life Members) */
 .board-row.cols-1 {
   justify-content: flex-start;
   padding-left: 22%;
 }
+
 .board-row.cols-1 .cell-single {
   font-family: 'Cinzel', serif;
   font-weight: 700;
   letter-spacing: 2px;
 }
-.board-row.cols-2 { justify-content: space-between; }
+
+/* 2-Column Row (e.g. Presidents, Representatives) */
+.board-row.cols-2 {
+  justify-content: space-between;
+}
+
 .board-row.cols-2 .cell-left {
   flex: 0 0 35%;
   text-align: left;
@@ -243,6 +247,7 @@ html, body {
   letter-spacing: 1.2px;
   opacity: 0.92;
 }
+
 .board-row.cols-2 .cell-right {
   flex: 1 1 auto;
   text-align: left;
@@ -251,7 +256,12 @@ html, body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.board-row.cols-3 { justify-content: space-between; }
+
+/* 3-Column Row (e.g. Batting Centuries, Bowling Records, Milestones) */
+.board-row.cols-3 {
+  justify-content: space-between;
+}
+
 .board-row.cols-3 .cell-c1 {
   flex: 0 0 26%;
   text-align: left;
@@ -259,6 +269,7 @@ html, body {
   letter-spacing: 1px;
   opacity: 0.9;
 }
+
 .board-row.cols-3 .cell-c2 {
   flex: 1 1 auto;
   text-align: left;
@@ -268,6 +279,7 @@ html, body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .board-row.cols-3 .cell-c3 {
   flex: 0 0 auto;
   max-width: 48%;
@@ -279,66 +291,77 @@ html, body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.board-row.cols-multi { justify-content: space-between; }
-.board-row.cols-multi .cell { flex: 1; padding: 0 4px; }
-.board-footer {
-  flex: 0 0 46px;
-  width: 100%;
-  display: flex;
-  align-items: center;
+
+/* Multi-column fallback */
+.board-row.cols-multi {
   justify-content: space-between;
-  padding: 0 10px;
-  border-top: 1px solid rgba(212, 152, 29, 0.35);
-  z-index: 2;
-  margin-top: 4px;
 }
-.footer-left { display: flex; align-items: center; gap: 10px; flex: 1; }
-.sync-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background-color: #2ecc71; box-shadow: 0 0 6px rgba(46,204,113,0.8);
-  transition: background-color 0.3s;
+
+.board-row.cols-multi .cell {
+  flex: 1;
+  padding: 0 4px;
 }
-.sync-dot.syncing {
-  background-color: #f39c12; box-shadow: 0 0 8px rgba(243,156,18,0.9);
-  animation: pulseSync 1s infinite alternate;
-}
-@keyframes pulseSync { from { opacity: 0.4; } to { opacity: 1; } }
-.pause-badge {
-  display: none; font-family: 'Cinzel', serif; font-size: 11px; font-weight: 700;
-  letter-spacing: 1.5px; color: #ffcc66; background: rgba(90,30,5,0.85);
-  border: 1px solid #d4981d; border-radius: 8px; padding: 1px 7px;
-}
-.pause-badge.active { display: inline-block; }
-.footer-category { font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700; letter-spacing: 2.5px; opacity: 0.75; }
-.footer-center { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
-.board-counter { font-family: 'Cinzel', serif; font-size: 12px; font-weight: 700; letter-spacing: 2px; opacity: 0.85; }
-.progress-track { width: 140px; height: 3px; background: rgba(255,255,255,0.12); border-radius: 2px; overflow: hidden; }
-.progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--gold-deep), var(--gold-highlight)); border-radius: 2px; }
-.footer-right { flex: 1; text-align: right; }
-.donated-by {
-  font-family: 'Great Vibes', 'Brush Script MT', cursive;
-  font-size: 24px; color: rgba(245,200,71,0.9); letter-spacing: 1.5px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.9);
-}
+
+/* TV Remote Control On-Screen Overlay */
 .tv-controls {
-  position: absolute; top: 30px; right: 35px; display: flex; gap: 6px;
-  opacity: 0; transition: opacity 0.3s ease; z-index: 100;
+  position: absolute;
+  top: 36px;
+  right: 48px;
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 100;
 }
-.fullscreen-board:hover .tv-controls { opacity: 0.65; }
-.tv-controls:hover { opacity: 1 !important; }
+
+.fullscreen-board:hover .tv-controls {
+  opacity: 0.65;
+}
+
+.tv-controls:hover {
+  opacity: 1 !important;
+}
+
 .nav-btn {
-  background: rgba(30,10,2,0.75); border: 1px solid rgba(212,152,29,0.5);
-  border-radius: 6px; color: var(--gold-highlight); font-family: 'Cinzel', serif;
-  font-size: 13px; padding: 4px 10px; cursor: pointer; transition: all 0.2s;
+  background: rgba(30, 10, 2, 0.75);
+  border: 1px solid rgba(212, 152, 29, 0.5);
+  border-radius: 6px;
+  color: var(--gold-highlight);
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
-.nav-btn:hover { background: rgba(70,25,5,0.9); border-color: var(--gold-main); box-shadow: 0 0 8px rgba(245,200,71,0.4); }
-.board-fade-in { animation: boardFadeIn 0.7s cubic-bezier(0.2, 0, 0.25, 1) forwards; }
-.board-fade-out { animation: boardFadeOut 0.7s cubic-bezier(0.2, 0, 0.25, 1) forwards; pointer-events: none; }
-@keyframes boardFadeIn { from { opacity: 0; transform: scale(0.995); } to { opacity: 1; transform: scale(1); } }
-@keyframes boardFadeOut { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(1.005); } }
+
+.nav-btn:hover {
+  background: rgba(70, 25, 5, 0.9);
+  border-color: var(--gold-main);
+  box-shadow: 0 0 8px rgba(245, 200, 71, 0.4);
+}
+
+/* Smooth Cross-Fade Transitions */
+.board-fade-in {
+  animation: boardFadeIn 0.7s cubic-bezier(0.2, 0, 0.25, 1) forwards;
+}
+
+.board-fade-out {
+  animation: boardFadeOut 0.7s cubic-bezier(0.2, 0, 0.25, 1) forwards;
+  pointer-events: none;
+}
+
+@keyframes boardFadeIn {
+  from { opacity: 0; transform: scale(0.995); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes boardFadeOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(1.005); }
+}
+
 @media (min-width: 2560px) {
   .club-title { font-size: 64px; }
   .board-subline-title { font-size: 42px; }
   .board-row { font-size: 26px; }
-  .donated-by { font-size: 34px; }
 }

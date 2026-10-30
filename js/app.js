@@ -6,19 +6,12 @@
   let currentIndex = 0;
   let isPaused = false;
   let rotationTimer = null;
-  let progressAnimFrame = null;
-  let rotationStartTime = 0;
   let sheetsDataMap = {};
   let wakeLock = null;
 
   const stageEl = document.getElementById('board-stage');
   const sublineTitleEl = document.getElementById('board-category-title');
   const pagePillEl = document.getElementById('board-page-pill');
-  const footerTitleEl = document.getElementById('footer-category-title');
-  const footerCounterEl = document.getElementById('footer-board-counter');
-  const progressBarEl = document.getElementById('progress-bar');
-  const pauseBadgeEl = document.getElementById('pause-badge');
-  const syncStatusEl = document.getElementById('sync-status');
 
   async function requestWakeLock() {
     if ('wakeLock' in navigator) {
@@ -40,7 +33,7 @@
     currentIndex = (index + virtualBoards.length) % virtualBoards.length;
     const board = virtualBoards[currentIndex];
 
-    // Update centered straight subline header and page pill
+    // Update centered straight subline header and page indicator pill
     if (sublineTitleEl) sublineTitleEl.textContent = board.categoryName.toUpperCase();
     if (pagePillEl) {
       if (board.totalPages > 1) {
@@ -67,11 +60,6 @@
       stageEl.appendChild(newBoardEl);
     }
 
-    if (footerTitleEl) footerTitleEl.textContent = board.categoryName.toUpperCase();
-    if (footerCounterEl) {
-      footerCounterEl.textContent = `BOARD ${currentIndex + 1} OF ${virtualBoards.length}`;
-    }
-
     resetRotationTimer();
   }
 
@@ -80,10 +68,8 @@
 
   function togglePause() {
     isPaused = !isPaused;
-    if (pauseBadgeEl) pauseBadgeEl.classList.toggle('active', isPaused);
     if (isPaused) {
       clearTimeout(rotationTimer);
-      cancelAnimationFrame(progressAnimFrame);
     } else {
       resetRotationTimer();
     }
@@ -91,25 +77,13 @@
 
   function resetRotationTimer() {
     clearTimeout(rotationTimer);
-    cancelAnimationFrame(progressAnimFrame);
     if (isPaused || virtualBoards.length <= 1) return;
 
     const interval = (window.BOARD_CONFIG && window.BOARD_CONFIG.rotationIntervalMs) || 15000;
-    rotationStartTime = performance.now();
-
-    function updateProgressBar(now) {
-      if (isPaused) return;
-      const elapsed = now - rotationStartTime;
-      const pct = Math.min(100, (elapsed / interval) * 100);
-      if (progressBarEl) progressBarEl.style.width = pct + '%';
-      if (elapsed < interval) progressAnimFrame = requestAnimationFrame(updateProgressBar);
-    }
-    progressAnimFrame = requestAnimationFrame(updateProgressBar);
     rotationTimer = setTimeout(nextBoard, interval);
   }
 
   async function performBackgroundSync() {
-    if (syncStatusEl) syncStatusEl.classList.add('syncing');
     try {
       const freshMap = await window.SheetsService.fetchAllSheets();
       sheetsDataMap = freshMap;
@@ -118,10 +92,8 @@
         virtualBoards = updatedBoards;
         if (currentIndex >= virtualBoards.length) currentIndex = 0;
       }
-      if (syncStatusEl) syncStatusEl.classList.remove('syncing');
     } catch (err) {
       console.warn('Sync warning:', err);
-      if (syncStatusEl) syncStatusEl.classList.remove('syncing');
     }
   }
 
@@ -168,10 +140,7 @@
     const reqPause = params.get('pause');
 
     if (reqSpeed && reqSpeed > 0) config.rotationIntervalMs = reqSpeed * 1000;
-    if (reqPause === 'true' || reqPause === '1') {
-      isPaused = true;
-      if (pauseBadgeEl) pauseBadgeEl.classList.add('active');
-    }
+    if (reqPause === 'true' || reqPause === '1') isPaused = true;
 
     let startIdx = 0;
     if (reqCategory) {

@@ -7,53 +7,114 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Great+Vibes&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <div class="fullscreen-board" id="honours-board">
     
-    <!-- Outer Inset Gold Pin-stripe Framing Border (matching reference photo) -->
-    <div class="board-frame-border" aria-hidden="true"></div>
+    <!-- Realistic Hardwood Timber & Beveled Frame SVG Backdrop -->
+    <svg class="board-backdrop-svg" viewBox="0 0 1920 1080" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <!-- Fine Vertical Grain Streaks Pattern -->
+        <pattern id="grainStreaks" width="60" height="80" patternUnits="userSpaceOnUse">
+          <line x1="4" y1="0" x2="4" y2="80" stroke="#160501" stroke-width="1.8" stroke-opacity="0.4" />
+          <line x1="5" y1="0" x2="5" y2="80" stroke="#ffbe66" stroke-width="1" stroke-opacity="0.15" />
+          <line x1="14" y1="0" x2="14" y2="80" stroke="#1f0701" stroke-width="1.2" stroke-opacity="0.28" />
+          <line x1="22" y1="0" x2="22" y2="80" stroke="#100301" stroke-width="2.5" stroke-opacity="0.45" />
+          <line x1="24" y1="0" x2="24" y2="80" stroke="#ffbe66" stroke-width="1.2" stroke-opacity="0.18" />
+          <line x1="33" y1="0" x2="33" y2="80" stroke="#1f0701" stroke-width="1.2" stroke-opacity="0.22" />
+          <line x1="41" y1="0" x2="41" y2="80" stroke="#100301" stroke-width="2" stroke-opacity="0.35" />
+          <line x1="52" y1="0" x2="52" y2="80" stroke="#160501" stroke-width="1.5" stroke-opacity="0.28" />
+          <line x1="54" y1="0" x2="54" y2="80" stroke="#ffbe66" stroke-width="0.8" stroke-opacity="0.12" />
+        </pattern>
 
-    <!-- Centered Straight Gold Header (matching reference photo 1) -->
-    <header class="board-header">
-      <h1 class="club-title">GREEN ISLAND CRICKET CLUB</h1>
-      <div class="header-gold-divider" aria-hidden="true">
-        <span class="divider-diamond">◆</span>
-      </div>
-      <div class="subline-wrapper">
-        <h2 class="board-subline-title" id="board-category-title">PRESIDENTS</h2>
-        <span class="page-indicator-pill" id="board-page-pill" style="display: none;">PAGE 1 OF 1</span>
-      </div>
-    </header>
+        <!-- Wavy Cathedral Grain Waves Pattern -->
+        <pattern id="cathedralWaves" width="960" height="320" patternUnits="userSpaceOnUse">
+          <path d="M 0,40 Q 240,140 480,40 T 960,40" fill="none" stroke="#120401" stroke-width="20" stroke-opacity="0.16" />
+          <path d="M 0,120 Q 240,240 480,120 T 960,120" fill="none" stroke="#ffc575" stroke-width="14" stroke-opacity="0.08" />
+          <path d="M 0,200 Q 240,320 480,200 T 960,200" fill="none" stroke="#150501" stroke-width="24" stroke-opacity="0.14" />
+          <path d="M 0,280 Q 240,380 480,280 T 960,280" fill="none" stroke="#ffa840" stroke-width="10" stroke-opacity="0.07" />
+        </pattern>
 
-    <!-- Dynamic Honours Board Stage (cross-faded every 15s) -->
-    <main class="board-stage" id="board-stage" aria-live="polite">
-      <!-- Populated dynamically by js/board.js and js/app.js -->
-    </main>
+        <!-- Warm Mahogany Base Gradient -->
+        <linearGradient id="warmTimber" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#3b1706" />
+          <stop offset="18%" stop-color="#5a280c" />
+          <stop offset="42%" stop-color="#733510" />
+          <stop offset="65%" stop-color="#54250b" />
+          <stop offset="100%" stop-color="#2c1103" />
+        </linearGradient>
 
-    <!-- Bottom Inscription & Status Bar -->
-    <footer class="board-footer">
-      <div class="footer-left">
-        <span class="sync-dot" id="sync-status" title="Google Sheet connected"></span>
-        <span class="pause-badge" id="pause-badge" aria-hidden="true">PAUSED</span>
-        <span class="footer-category" id="footer-category-title">PRESIDENTS</span>
-      </div>
+        <!-- Natural Amber Varnish Highlight -->
+        <radialGradient id="varnishLight" cx="50%" cy="25%" r="60%">
+          <stop offset="0%" stop-color="#ffe6b0" stop-opacity="0.25" />
+          <stop offset="40%" stop-color="#ffb850" stop-opacity="0.09" />
+          <stop offset="100%" stop-color="#000000" stop-opacity="0.4" />
+        </radialGradient>
+      </defs>
 
-      <div class="footer-center">
-        <span class="board-counter" id="footer-board-counter">BOARD 1 OF 11</span>
-        <div class="progress-track" title="15-second rotation timer">
-          <div class="progress-bar" id="progress-bar"></div>
+      <!-- Base Timber -->
+      <rect width="1920" height="1080" fill="url(#warmTimber)" />
+
+      <!-- Vertical Planks (6 timber boards with natural plank seams & tones) -->
+      <rect x="0" y="0" width="320" height="1080" fill="#200a02" opacity="0.22" />
+      <line x1="320" y1="0" x2="320" y2="1080" stroke="#0e0300" stroke-width="3" opacity="0.85" />
+      <line x1="322" y1="0" x2="322" y2="1080" stroke="#ffb86c" stroke-width="1.2" opacity="0.25" />
+
+      <rect x="320" y="0" width="320" height="1080" fill="#783612" opacity="0.14" />
+      <line x1="640" y1="0" x2="640" y2="1080" stroke="#0e0300" stroke-width="3" opacity="0.85" />
+      <line x1="642" y1="0" x2="642" y2="1080" stroke="#ffb86c" stroke-width="1.2" opacity="0.25" />
+
+      <rect x="640" y="0" width="320" height="1080" fill="#1e0902" opacity="0.18" />
+      <line x1="960" y1="0" x2="960" y2="1080" stroke="#0e0300" stroke-width="3" opacity="0.85" />
+      <line x1="962" y1="0" x2="962" y2="1080" stroke="#ffb86c" stroke-width="1.2" opacity="0.25" />
+
+      <rect x="960" y="0" width="320" height="1080" fill="#6e310e" opacity="0.12" />
+      <line x1="1280" y1="0" x2="1280" y2="1080" stroke="#0e0300" stroke-width="3" opacity="0.85" />
+      <line x1="1282" y1="0" x2="1282" y2="1080" stroke="#ffb86c" stroke-width="1.2" opacity="0.25" />
+
+      <rect x="1280" y="0" width="320" height="1080" fill="#240c03" opacity="0.24" />
+      <line x1="1600" y1="0" x2="1600" y2="1080" stroke="#0e0300" stroke-width="3" opacity="0.85" />
+      <line x1="1602" y1="0" x2="1602" y2="1080" stroke="#ffb86c" stroke-width="1.2" opacity="0.25" />
+
+      <rect x="1600" y="0" width="320" height="1080" fill="#642a0b" opacity="0.1" />
+
+      <!-- Organic Grain Patterns -->
+      <rect width="1920" height="1080" fill="url(#cathedralWaves)" />
+      <rect width="1920" height="1080" fill="url(#grainStreaks)" />
+      <rect width="1920" height="1080" fill="url(#varnishLight)" />
+
+      <!-- 3D Beveled Outer Timber Frame -->
+      <rect x="0" y="0" width="1920" height="1080" fill="none" stroke="#120501" stroke-width="32" />
+      <rect x="16" y="16" width="1888" height="1048" fill="none" stroke="#4d2208" stroke-width="12" />
+      <rect x="22" y="22" width="1876" height="1036" fill="none" stroke="#1e0b03" stroke-width="4" />
+      <rect x="24" y="24" width="1872" height="1032" fill="none" stroke="#ffbe66" stroke-width="1" stroke-opacity="0.2" />
+
+      <!-- Inset Gold Pin-stripe Framing Border (matching reference photo 1) -->
+      <rect x="42" y="36" width="1836" height="1008" fill="none" stroke="#d4981d" stroke-width="1.8" stroke-opacity="0.5" />
+    </svg>
+
+    <!-- Foreground Content Layer -->
+    <div class="board-content-layer">
+      <!-- Centered Straight Gold Header (Club Name + Subline Board Name) -->
+      <header class="board-header">
+        <h1 class="club-title">GREEN ISLAND CRICKET CLUB</h1>
+        <div class="header-gold-divider" aria-hidden="true">
+          <span class="divider-diamond">◆</span>
         </div>
-      </div>
+        <div class="subline-wrapper">
+          <h2 class="board-subline-title" id="board-category-title">PRESIDENTS</h2>
+          <span class="page-indicator-pill" id="board-page-pill" style="display: none;">PAGE 1 OF 1</span>
+        </div>
+      </header>
 
-      <div class="footer-right">
-        <!-- Physical board bottom inscription -->
-        <span class="donated-by">DONATED BY.. Ladies Committee...</span>
-      </div>
-    </footer>
+      <!-- Dynamic Honours Board Stage (cross-faded every 15s) -->
+      <main class="board-stage" id="board-stage" aria-live="polite">
+        <!-- Populated dynamically by js/board.js and js/app.js -->
+      </main>
+    </div>
 
     <!-- Discreet TV Navigation Controls -->
     <nav class="tv-controls" aria-label="Board Navigation">
